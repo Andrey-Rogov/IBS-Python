@@ -1,0 +1,30 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Web App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="http://code.jquery.com/jquery 2.1.4.min.js"></script>
+    <script type="text/javascript">
+        function enableButton() {
+            var userInput = document.getElementById("userInput").value;
+            var button = document.getElementById("executeButton");
+            button.disabled = userInput.trim() === ""; // Disable button if input is empty
+        }
+        function executeScript() {
+            var user_inp = document.getElementById("userInput").value;
+            var jqXHR = $.ajax({
+                type: "POST",
+                url: "/execute_script.py",
+                data: { number:  user_inp}
+            });
+            document.getElementById('result').innerHTML = jqXHR.responseText;
+        }
+
+    </script>
+</head>
+<body>
+        <textarea id="userInput" oninput="enableButton()" placeholder="Enter an integer:"></textarea>
+        <button id="executeButton" disabled onclick="executeScript()">   Convert >>></button>
+        <textarea id="outputWindow"></textarea>
+</body>
+</html>
